@@ -1,0 +1,56 @@
+services:
+  # --- Go 应用 ---
+  app:
+    build: .
+    container_name: flow-blog-app # 容器名
+    restart: always
+    ports:
+      - "127.0.0.1:8080:8080" # 映射到宿主机 8080，只允许本地/Nginx访问
+    environment:
+      - GIN_MODE=release
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - blog-network
+    volumes:
+      # 挂载配置文件，方便直接在服务器修改配置不用重新打包镜像
+      - ./config:/app/config
+      # 挂载日志目录
+      - ./logs:/app/logs
+
+  # --- MySQL 数据库 ---
+  mysql:
+    image: mysql:5.7
+    container_name: flow-blog-mysql
+    restart: always
+    ports:
+      - "127.0.0.1:3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 你的mysql密码 # ⚠️ 请修改此密码
+      MYSQL_DATABASE: flow-blog       # 自动创建的数据库名
+      TZ: Asia/Shanghai
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-name-resolve
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # 如果有初始SQL脚本，放在项目根目录的 sql/下，会自动导入
+    networks:
+      - blog-network
+  redis:
+    image: redis:alpine
+    container_name: flow-blog-redis
+    restart: always
+    networks:
+      - blog-network
+
+
+networks:
+  blog-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

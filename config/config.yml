@@ -1,0 +1,40 @@
+# config.yaml
+model:
+  env: production
+
+# 基础配置
+app:
+  name: FLOW BLOG # 项目名称，用于显示邮件标题
+  port: :8080 # 编译后监听的端口
+  basePath: /blog # API的基础路径，会拼接到所有接口前面
+
+# mysql配置
+mysql:
+  host: mysql # 地址，docker管理
+  user: 登陆用户名 # ⚠️ 修改登录用户
+  password: 登陆密码 # ⚠️ 修改密码
+  DataDB: flow-blog # 连接的数据库名(与docker中一致)
+  charset: utf8mb4 # 数据库的编码格式
+
+# redis配置
+redis:
+  addr: redis:6379 # 地址
+  password: # 连接密码，没有空着
+  DB: 0 # 要使用的数据库编号
+
+# 邮件发送配置，使用的是自己的qq邮箱发送，推荐先设置qq邮箱别名
+email:
+  sendEmail: 邮箱地址 # 自己的邮箱
+  emailCode: 授权码 # qq邮箱授权码
+
+# github第三方登录配置
+github:
+  clientId: clientId # ⚠️ 修改clientId
+  secret: secret # ⚠️ 修改secret
+  redirectUrl: redirectUrl # ⚠️ 修改redirectUrl
+
+# 日志配置
+log:
+  MaxSize: 1 # 日志最大尺寸(M), 超过自动分割
+  MaxBackups: 10 # 最多保留几个日志
+  MaxAge: 30 # 保留旧日志的最大天数

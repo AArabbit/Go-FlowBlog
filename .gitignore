@@ -1,0 +1,6 @@
+tmp/
+.idea
+main
+logs
+blog.conf
+blog-app
