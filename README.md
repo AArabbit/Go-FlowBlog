@@ -4,7 +4,7 @@
 
 #### 前端项目：[AArabbit/FLOW-BLOG-VUE: 使用vue3,typescript,vite](https://github.com/AArabbit/FLOW-BLOG-VUE)
 
-#### 有详细的API文档：[API文档](https://rabbitwebsite.top/codex/3)
+#### 有详细的API文档(站点可F12查看接口)：[API文档](https://rabbitwebsite.top/codex/3)
 
 #### 本地运行方式：
 
